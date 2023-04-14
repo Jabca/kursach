@@ -44,5 +44,23 @@ namespace HuffmanTree{
 
             recursiveDFS(root_node, new BitString());
         }
+
+        public BitString EncodeBlock(BitString arg){
+            if(encodeDictionary.TryGetValue(arg, out BitString return_value)){
+                return return_value;
+            }
+            else{
+                throw new KeyNotFoundException();
+            }
+        }
+
+        public BitString DecodeValue(BitString arg){
+            if(decodeDictionary.TryGetValue(arg, out BitString return_value)){
+                return return_value;
+            }
+            else{
+                throw new KeyNotFoundException();
+            }
+        }
     }
 }
