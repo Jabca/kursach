@@ -24,5 +24,12 @@ namespace BitStringNameSpace{
             }
             return result;
         }
+
+        public BitString InitWithChar(char arg){
+            data = Convert.ToUInt64(arg);
+            length = 8;
+            bit_pointer = bit_pointer << 8;
+            return this;
+        }
     }
 }
