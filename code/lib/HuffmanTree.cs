@@ -3,9 +3,13 @@ using BitStringNameSpace;
 
 namespace HuffmanTreeNameSpace{
     public class HuffmanTree{
-        private List<KeyValuePair<BitString, int>> frequencies;
         private HuffmanNode root_node;
-        private Dictionary<BitString, BitString> encodeDictionary, decodeDictionary;
+        private Dictionary<byte, BitString> encodeDictionary; 
+        private Dictionary<BitString, byte> decodeDictionary;
+
+        private HuffmanNode? cur_node = null;
+
+
 
         private void recursiveDFS(HuffmanNode current_node, BitString current_addres){
             if(current_node.GetData() is null){
@@ -13,15 +17,15 @@ namespace HuffmanTreeNameSpace{
                 recursiveDFS(current_node.GetRightChild(), current_addres.Append(1));
             }
             else{
-                encodeDictionary.Add(current_node.GetData(), current_addres);
-                decodeDictionary.Add(current_addres, current_node.GetData()); 
+                byte node_data = Convert.ToByte(cur_node.GetData());
+                encodeDictionary.Add(node_data, current_addres);
+                decodeDictionary.Add(current_addres, node_data); 
             }
         }
-        public HuffmanTree(List<KeyValuePair<BitString, int>> frequency_list){
-            frequencies = frequency_list;
+        public HuffmanTree(List<KeyValuePair<byte, int>> frequencies){
             var NodesQueue = new PriorityQueue<HuffmanNode, int>();
             HuffmanNode tmpNode1, tmpNode2, tmpRoot;
-            foreach(KeyValuePair<BitString, int> nodeData in frequencies){
+            foreach(KeyValuePair<byte, int> nodeData in frequencies){
                 tmpNode1 = new HuffmanNode(nodeData.Key, nodeData.Value);
                 NodesQueue.Enqueue(tmpNode1, tmpNode1.GetWeight());
             }
@@ -43,9 +47,11 @@ namespace HuffmanTreeNameSpace{
             root_node = NodesQueue.Dequeue();
 
             recursiveDFS(root_node, new BitString());
+
+            cur_node = root_node;
         }
 
-        public BitString EncodeBlock(BitString arg){
+        public BitString EncodeBlock(byte arg){
             if(encodeDictionary.TryGetValue(arg, out BitString return_value)){
                 return return_value;
             }
@@ -54,13 +60,30 @@ namespace HuffmanTreeNameSpace{
             }
         }
 
-        public BitString DecodeValue(BitString arg){
-            if(decodeDictionary.TryGetValue(arg, out BitString return_value)){
+        public byte DecodeValue(BitString arg){
+            if(decodeDictionary.TryGetValue(arg, out byte return_value)){
                 return return_value;
             }
             else{
                 throw new KeyNotFoundException();
             }
+        }
+
+        public void StartLiveDecoding(){
+            HuffmanNode cur_node = root_node;
+        }
+
+        public byte? LiveDecoding(bool arg){
+            if(arg == true){
+                cur_node = cur_node.GetRightChild();
+            }
+            else{
+                cur_node = cur_node.GetLeftChild();
+            }
+            if(cur_node.GetData() != null){
+                return cur_node.GetData();
+            }
+            return null;
         }
     }
 }

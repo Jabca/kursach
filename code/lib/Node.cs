@@ -1,11 +1,15 @@
 using BitStringNameSpace;
 
 namespace NodeNameSpace{
+    public class HuffmanRootNode{
+
+    }
     public class HuffmanNode{
-        private BitString? data;
         private int weight;
+        byte? data;
         private HuffmanNode? root, left_child, right_child;
-        public HuffmanNode(BitString? node_data, int node_weight){
+
+        public HuffmanNode(byte? node_data, int node_weight){
             data = node_data;
             weight = node_weight;
 
@@ -13,6 +17,7 @@ namespace NodeNameSpace{
             left_child = null;
             right_child = null;
         }
+
         public void AssignRoot(HuffmanNode root_node){
             root = root_node;
         }
@@ -23,7 +28,7 @@ namespace NodeNameSpace{
         }
 
         public int GetWeight(){return weight;}
-        public BitString? GetData(){return data;}
+        public byte? GetData(){return data;}
 
         public HuffmanNode? GetLeftChild(){return left_child;}
 
