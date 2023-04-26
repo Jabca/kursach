@@ -1,7 +1,7 @@
 using NodeNameSpace;
 using BitStringNameSpace;
 
-namespace HuffmanTree{
+namespace HuffmanTreeNameSpace{
     public class HuffmanTree{
         private List<KeyValuePair<BitString, int>> frequencies;
         private HuffmanNode root_node;
