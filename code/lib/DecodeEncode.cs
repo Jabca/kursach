@@ -3,7 +3,7 @@ using HuffmanTreeNameSpace;
 
 namespace DecodeEncodeNameSapace{
     public class FromFileConstructor{
-        private Dictionary<byte, int> frequencies = new Dictionary<byte, int>();
+        private Dictionary<byte, ulong> frequencies = new Dictionary<byte, ulong>();
         public FromFileConstructor(string file_path){
             using(FileStream fs = File.OpenRead(file_path)){
                 byte cur_byte;
@@ -14,7 +14,7 @@ namespace DecodeEncodeNameSapace{
                         throw new FieldAccessException("File end unexpectedly encountered");
                     }
                     cur_byte = Convert.ToByte(tmp);
-                    if(frequencies.TryGetValue(cur_byte, out int val)){
+                    if(frequencies.TryGetValue(cur_byte, out ulong val)){
                         frequencies[cur_byte] += 1;
                     }
                     else{
@@ -26,6 +26,10 @@ namespace DecodeEncodeNameSapace{
 
         public HuffmanTree GetTree(){
             return new HuffmanTree(frequencies);
+        }
+
+        public Dictionary<byte, ulong> GetFrequencies(){
+            return frequencies;
         }
     }
 }

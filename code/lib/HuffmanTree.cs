@@ -2,16 +2,17 @@ using NodeNameSpace;
 using BitStringNameSpace;
 
 namespace HuffmanTreeNameSpace{
+    [Serializable]
     public class HuffmanTree{
         private HuffmanNode root_node;
         private HuffmanNode cur_node;
 
         private Dictionary<byte, HuffmanNode> DataNodes = new Dictionary<byte, HuffmanNode>();
 
-        public HuffmanTree(Dictionary<byte, int> frequencies){
-            var NodesQueue = new PriorityQueue<HuffmanNode, int>();
+        public HuffmanTree(Dictionary<byte, ulong> frequencies){
+            var NodesQueue = new PriorityQueue<HuffmanNode, ulong>();
             HuffmanNode tmpNode1, tmpNode2, tmpRoot;
-            foreach(KeyValuePair<byte, int> nodeData in frequencies){
+            foreach(KeyValuePair<byte, ulong> nodeData in frequencies){
                 tmpNode1 = new HuffmanNode(nodeData.Key, nodeData.Value);
                 NodesQueue.Enqueue(tmpNode1, tmpNode1.GetWeight());
                 DataNodes[nodeData.Key] = tmpNode1;

@@ -1,4 +1,5 @@
 namespace BitStringNameSpace{
+    [Serializable]
     public class BitString{
         private int length = 0;
         private ulong data = 0;
