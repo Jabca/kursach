@@ -3,15 +3,15 @@ namespace BitStringNameSpace{
         private int length = 0;
         private ulong data = 0;
         private ulong bit_pointer = 1;
-        public BitString Append(bool bit){
+        public BitString Append(int bit){
             length++;
-            if(bit){
+            if(bit == 1){
                 data = bit_pointer | data;
                 bit_pointer <<= 1;
                 length++;
             }            
             if(length > 64){
-                throw new OverflowException("Bit pointer overflow: block is larger then 64 bit", BitString);
+                throw new OverflowException("Bit pointer overflow: block is larger then 64 bit");
             }
 
             return this;

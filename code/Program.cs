@@ -1,17 +1,14 @@
 ﻿using HuffmanTreeNameSpace;
 using BitStringNameSpace;
 using System;
+using DecodeEncodeNameSapace;
 
 namespace Program{
     class Program{
         public static void Main(string[] SysArgv){
-            try{
-                int q = Convert.ToInt32(Console.ReadLine());
-                int i = (90 - 12) / (1 - q);
-            }
-            catch{
-                Console.WriteLine("Go fuck yourself");
-            }
+            FromFileConstructor constructor = new FromFileConstructor("test_files/src_copy.txt");
+            HuffmanTree tree = constructor.GetTree();
+
             
         }
     }

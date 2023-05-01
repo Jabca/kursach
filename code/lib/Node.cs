@@ -30,9 +30,20 @@ namespace NodeNameSpace{
         public int GetWeight(){return weight;}
         public byte? GetData(){return data;}
 
-        public HuffmanNode? GetLeftChild(){return left_child;}
+        public HuffmanNode GetLeftChild(){
+            if(left_child is null){
+                throw new NullReferenceException();
+            }
+            return left_child;
+            
+        }
 
-        public HuffmanNode? GetRightChild(){return right_child;}
+        public HuffmanNode GetRightChild(){
+            if(right_child is null){
+                throw new NullReferenceException();
+            }
+            return right_child;
+        }
 
 
     }
