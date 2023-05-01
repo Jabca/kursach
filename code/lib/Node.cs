@@ -45,6 +45,13 @@ namespace NodeNameSpace{
             return right_child;
         }
 
+        public HuffmanNode GetRoot(){
+            if(root is null){
+                throw new NullReferenceException();
+            }
+            return root;
+        }
+
 
     }
 }

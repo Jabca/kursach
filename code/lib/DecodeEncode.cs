@@ -3,7 +3,7 @@ using HuffmanTreeNameSpace;
 
 namespace DecodeEncodeNameSapace{
     public class FromFileConstructor{
-        private Dictionary<byte, int> frequencies = new Dictionary<byte, int>(0);
+        private Dictionary<byte, int> frequencies = new Dictionary<byte, int>();
         public FromFileConstructor(string file_path){
             using(FileStream fs = File.OpenRead(file_path)){
                 byte cur_byte;
