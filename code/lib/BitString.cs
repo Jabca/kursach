@@ -1,9 +1,20 @@
 namespace BitStringNameSpace{
     [Serializable]
     public class BitString{
-        private int length = 0;
-        private ulong data = 0;
-        private ulong bit_pointer = 1;
+        private int length;
+        private ulong data;
+        private ulong bit_pointer;
+
+        public BitString(){
+            length = 0;
+            data = 0;
+            bit_pointer = 1;
+        }
+        public BitString(byte fill){
+            length = 8;
+            data = Convert.ToUInt64(fill);
+            bit_pointer <<= 8;
+        }
         public void AppendRight(int bit){
             if(bit == 1){
                 data = bit_pointer | data;
@@ -31,6 +42,9 @@ namespace BitStringNameSpace{
         }
 
         public int GetLeft(){
+            if(length == 0){
+                throw new Exception("Bitstring is empty");
+            }
             if((data & (bit_pointer >> 1)) == 0){
                 return 0;
             }
@@ -39,12 +53,28 @@ namespace BitStringNameSpace{
             }
         }
 
-        public void DelLeft(){
+        public void PopLeft(){
             if(length == 0){
                 throw new Exception("Bitstring is empty");
             }
             length--;
+            bit_pointer >>= 1;
             data = data & (~bit_pointer);
+        }
+
+        public int GetRight(){
+            if(length == 0){
+                throw new Exception("Bitstring is empty");
+            }
+            return (int)(data & 1);
+        }
+
+        public void PopRight(){
+            if(length == 0){
+                throw new Exception("Bitstring is empty");
+            }
+            data >>= 1;
+            length--;
             bit_pointer >>= 1;
         }
          
@@ -67,15 +97,50 @@ namespace BitStringNameSpace{
             return result;
         }
 
-        public BitString InitWithChar(char arg){
-            data = Convert.ToByte(arg);
-            length = 8;
-            bit_pointer = bit_pointer << 8;
-            return this;
-        }
-
         public bool IsEmpty(){
             return (length == 0);
+        }
+
+        public int getLength(){
+            return length;
+        }
+
+        public ulong GetData(){
+            return data;
+        }
+
+        public void AppendRight(BitString bs){
+            int l = bs.getLength();
+            bit_pointer <<= l;
+            data <<= l;
+            length += l;
+            data += bs.GetData();
+        }
+
+        public byte GetLastByte(){
+            if(length < 8){
+                throw new Exception("Bitstring is less then a byte");
+            }
+            return (byte)(data & 0b11111111);
+        }
+
+        public void fillToByte(){
+            if(length >= 8){
+                throw new Exception("Bitstring is alredy minimum 1 byte long");
+                
+            }
+            bit_pointer <<= 8 - length;
+            data <<= 8 - length;
+            length = 8;
+        }
+
+        public void PopLastByte(){
+            if(length < 8){
+                throw new Exception("Bitstring is less then a byte");
+            }
+            data >>= 8;
+            length -= 8;
+            bit_pointer >>= 8;
         }
 
 

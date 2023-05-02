@@ -1,24 +1,20 @@
 ﻿using HuffmanTreeNameSpace;
 using BitStringNameSpace;
 using System;
-using DecodeEncodeNameSapace;
-using System.Text.Json;
-
+using FileUtilsNameSpace;
+using EncodeDecodeNameSpace;
 
 namespace Program{
     class Program{
         public void CreateArchive(string input_path, string output_path){
-            
+
         }
         public static void Main(string[] SysArgv){
-            FromFileConstructor constructor = new FromFileConstructor("test_files/src_copy.txt");
-            HuffmanTree tree = constructor.GetTree();
-            var t = constructor.GetFrequencies();
+            var encoder = new FileEncoder();
+            var decoder = new FileDecoder();
 
-            var options = new JsonSerializerOptions { WriteIndented = true };
-            string jsonString = JsonSerializer.Serialize<Dictionary<byte, ulong>>(t, options);
-
-            Console.WriteLine(jsonString);
+            encoder.EncodeFile("test_files/src.txt", "test_files/a.ssaf");
+            decoder.DecodeFile("test_files/a.ssaf", "test_files/test_decode.txt");
         }
     }
 }

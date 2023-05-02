@@ -7,12 +7,14 @@ namespace HuffmanTreeNameSpace{
         private HuffmanNode root_node;
         private HuffmanNode cur_node;
 
+        private byte? return_value;
+
         private Dictionary<byte, HuffmanNode> DataNodes = new Dictionary<byte, HuffmanNode>();
 
-        public HuffmanTree(Dictionary<byte, ulong> frequencies){
-            var NodesQueue = new PriorityQueue<HuffmanNode, ulong>();
+        public HuffmanTree(Dictionary<byte, uint> frequencies){
+            var NodesQueue = new PriorityQueue<HuffmanNode, uint>();
             HuffmanNode tmpNode1, tmpNode2, tmpRoot;
-            foreach(KeyValuePair<byte, ulong> nodeData in frequencies){
+            foreach(KeyValuePair<byte, uint> nodeData in frequencies){
                 tmpNode1 = new HuffmanNode(nodeData.Key, nodeData.Value);
                 NodesQueue.Enqueue(tmpNode1, tmpNode1.GetWeight());
                 DataNodes[nodeData.Key] = tmpNode1;
@@ -58,11 +60,11 @@ namespace HuffmanTreeNameSpace{
                 return cur_node.GetData();
             }
             if(address.GetLeft() == 1){
-                address.DelLeft();
+                address.PopLeft();
                 return RecursiveDecode(cur_node.GetRightChild(), address);
             }
             else{
-                address.DelLeft();
+                address.PopLeft();
                 return RecursiveDecode(cur_node.GetLeftChild(), address);
             }
         }
@@ -84,7 +86,9 @@ namespace HuffmanTreeNameSpace{
             }
 
             if(cur_node.GetData() != null){
-                return cur_node.GetData();
+                return_value = cur_node.GetData();
+                cur_node = root_node;
+                return return_value;
             }
             return null;
         }
