@@ -1,5 +1,4 @@
 namespace BitStringNameSpace{
-    [Serializable]
     public class BitString{
         private int length;
         private ulong data;
@@ -15,7 +14,7 @@ namespace BitStringNameSpace{
             data = Convert.ToUInt64(fill);
             bit_pointer <<= 8;
         }
-        public void AppendRight(int bit){
+        public void AppendLeft(int bit){
             if(bit == 1){
                 data = bit_pointer | data;
             } 
@@ -29,7 +28,7 @@ namespace BitStringNameSpace{
             }
         }
 
-        public void AppendLeft(int bit){
+        public void AppendRight(int bit){
             data <<= 1;
             if(bit == 1){
                 data = data | 1;
@@ -117,11 +116,11 @@ namespace BitStringNameSpace{
             data += bs.GetData();
         }
 
-        public byte GetLastByte(){
+        public byte GetFirstByte(){
             if(length < 8){
                 throw new Exception("Bitstring is less then a byte");
             }
-            return (byte)(data & 0b11111111);
+            return (byte)(data >> (length - 8));
         }
 
         public void fillToByte(){
@@ -129,8 +128,8 @@ namespace BitStringNameSpace{
                 throw new Exception("Bitstring is alredy minimum 1 byte long");
                 
             }
-            bit_pointer <<= 8 - length;
-            data <<= 8 - length;
+            bit_pointer <<= (8 - length);
+            data <<= (8 - length);
             length = 8;
         }
 
@@ -139,6 +138,15 @@ namespace BitStringNameSpace{
                 throw new Exception("Bitstring is less then a byte");
             }
             data >>= 8;
+            length -= 8;
+            bit_pointer >>= 8;
+        }
+
+        public void PopFirstByte(){
+            if(length < 8){
+                throw new Exception("Bitstring is less then a byte");
+            }
+            data = data & (~((uint)255 << (length - 8)));
             length -= 8;
             bit_pointer >>= 8;
         }

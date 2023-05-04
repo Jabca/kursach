@@ -92,5 +92,13 @@ namespace HuffmanTreeNameSpace{
             }
             return null;
         }
+
+        public Dictionary<byte, BitString> GetEnecodeDictionary(){
+            var encode_dectionary = new Dictionary<byte, BitString>();
+            foreach(var pair in DataNodes){
+                encode_dectionary[pair.Key] = this.EncodeValue(pair.Key);
+            }
+            return encode_dectionary;
+        }
     }
 }

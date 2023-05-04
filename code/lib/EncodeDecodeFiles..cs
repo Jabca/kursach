@@ -19,6 +19,7 @@ namespace EncodeDecodeNameSpace{
                 for(uint i = data_start; i < source_fs.Length; i++){
                     tmp_int = source_fs.ReadByte();
                     if(tmp_int == -1){
+                        target_fs.Close();
                         throw new FileLoadException("File end unexpectedly encountered");
                     }
                     buffer.AppendRight(new BitString((byte)tmp_int));
@@ -52,6 +53,7 @@ namespace EncodeDecodeNameSpace{
             var frequencies = tree_decoder.GetFrequencies();
 
             byte read_buffer;
+            byte write_buffer;
             int tmp_int;
             BitString buffer = new BitString();
             BitString encodeValue;
@@ -70,13 +72,14 @@ namespace EncodeDecodeNameSpace{
                     encodeValue = tree.EncodeValue(read_buffer);
                     buffer.AppendRight(encodeValue);
                     while(buffer.getLength() >= 8){
-                        target_fs.WriteByte(buffer.GetLastByte());
-                        buffer.PopLastByte();
+                        write_buffer = buffer.GetFirstByte();
+                        target_fs.WriteByte(write_buffer);
+                        buffer.PopFirstByte();
                     }
                 }
                 if(!buffer.IsEmpty()){
                     buffer.fillToByte();
-                    target_fs.WriteByte(buffer.GetLastByte());
+                    target_fs.WriteByte(buffer.GetFirstByte());
                 }
             }
         }

@@ -91,5 +91,9 @@ namespace FileUtilsNameSpace{
         public uint GetDataStartAddress(){
             return data_start_address;
         }
+
+        public Dictionary<byte, uint> GetFrequencies(){
+            return frequiencies;
+        }
     }
 }
