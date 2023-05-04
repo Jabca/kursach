@@ -38,7 +38,6 @@ namespace FileUtilsNameSpace{
             byte[] uint_byte_buffer = new byte[4];
             foreach(var pair in frequencies){
                 byte_buffer[index] = pair.Key;
-
                 uint_byte_buffer = BitConverter.GetBytes(pair.Value);
                 if (BitConverter.IsLittleEndian)
                     Array.Reverse(uint_byte_buffer);
@@ -55,6 +54,8 @@ namespace FileUtilsNameSpace{
     public class TreeFromArchiveConstructor{
         public uint data_start_address;
         Dictionary<byte, uint> frequiencies = new Dictionary<byte, uint>();
+
+        long original_file_length;
         public TreeFromArchiveConstructor(string path_to_file){
             data_start_address = 0;
             using(FileStream fs = File.OpenRead(path_to_file)){
@@ -62,6 +63,7 @@ namespace FileUtilsNameSpace{
                 byte cur_byte;
                 uint byte_frequency;
                 byte[] byte_buffer = {0, 0, 0, 0};
+                byte[] file_size_buffer = new byte[8];
                 while(true){
                     tmp_int = fs.ReadByte();
                     if(tmp_int == -1){
@@ -82,6 +84,11 @@ namespace FileUtilsNameSpace{
                     data_start_address += 5;
                 }
                 data_start_address += 5;
+                fs.Read(file_size_buffer, 0, 8);
+                if (BitConverter.IsLittleEndian)
+                    Array.Reverse(file_size_buffer);
+                original_file_length = BitConverter.ToInt64(file_size_buffer);
+                data_start_address += 8;
             }
         }
         public HuffmanTree GetTree(){
@@ -90,6 +97,10 @@ namespace FileUtilsNameSpace{
 
         public uint GetDataStartAddress(){
             return data_start_address;
+        }
+
+        public long GetOriginalFileLength(){
+            return original_file_length;
         }
 
         public Dictionary<byte, uint> GetFrequencies(){

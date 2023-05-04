@@ -11,6 +11,8 @@ namespace EncodeDecodeNameSpace{
 
             byte? write_buffer;
             int tmp_int;
+            long original_file_size = tree_decoder.GetOriginalFileLength();
+            long bits_written = 0;  
             BitString buffer = new BitString();
 
             using(FileStream source_fs = File.OpenRead(intput_file))
@@ -24,20 +26,14 @@ namespace EncodeDecodeNameSpace{
                     }
                     buffer.AppendRight(new BitString((byte)tmp_int));
                     do{
-                        try{
-                            write_buffer = tree.LiveDecode(buffer.GetLeft());
-                        }
-                        catch(Exception e){
-                            if(i == source_fs.Length-1){
-                                return;
-                            }
-                            else{
-                                throw e;
-                            }
-                        }
+                        write_buffer = tree.LiveDecode(buffer.GetLeft());
                         buffer.PopLeft();
                         if(!(write_buffer is null)){
                             target_fs.WriteByte((byte)write_buffer);
+                            bits_written += 1;
+                            if(bits_written >= original_file_size){
+                                break;
+                            }
                         } 
                     }
                     while(!buffer.IsEmpty());
@@ -55,6 +51,8 @@ namespace EncodeDecodeNameSpace{
             byte read_buffer;
             byte write_buffer;
             int tmp_int;
+            long file_length;
+            byte[] file_length_buffer;
             BitString buffer = new BitString();
             BitString encodeValue;
 
@@ -63,6 +61,12 @@ namespace EncodeDecodeNameSpace{
             using(FileStream source_fs = File.OpenRead(intput_file))
             using(FileStream target_fs = File.Create(output_file)){
                 target_fs.Write(serizlized_tree_info, 0, serizlized_tree_info.Count());
+                file_length = source_fs.Length;
+                file_length_buffer = BitConverter.GetBytes(file_length);
+                if(BitConverter.IsLittleEndian){
+                    Array.Reverse(file_length_buffer);
+                }
+                target_fs.Write(file_length_buffer, 0, 8);
                 for(int i = 0; i < source_fs.Length; i++){
                     tmp_int = source_fs.ReadByte();
                     if(tmp_int == -1){
