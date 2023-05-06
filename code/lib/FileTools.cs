@@ -1,7 +1,7 @@
 using System;
-using HuffmanTreeNameSpace;
+using HuffmanTreeNamespace;
 
-namespace FileUtilsNameSpace{
+namespace FileUtilsNamespace{
     public class TreeFromSourceConstructor{
         private Dictionary<byte, uint> frequencies = new Dictionary<byte, uint>();
         public TreeFromSourceConstructor(string file_path){

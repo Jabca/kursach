@@ -1,4 +1,4 @@
-namespace BitStringNameSpace{
+namespace BitStringNamespace{
     public class BitString{
         private int length;
         private ulong data;
@@ -52,13 +52,17 @@ namespace BitStringNameSpace{
             }
         }
 
-        public void PopLeft(){
+        public int PopLeft(){
             if(length == 0){
                 throw new Exception("Bitstring is empty");
             }
+
+            int ret_value = this.GetLeft();
+
             length--;
             bit_pointer >>= 1;
             data = data & (~bit_pointer);
+            return ret_value;
         }
 
         public int GetRight(){
@@ -68,13 +72,17 @@ namespace BitStringNameSpace{
             return (int)(data & 1);
         }
 
-        public void PopRight(){
+        public int PopRight(){
             if(length == 0){
                 throw new Exception("Bitstring is empty");
             }
+
+            int ret_vlue = this.GetRight();
+
             data >>= 1;
             length--;
             bit_pointer >>= 1;
+            return ret_vlue;
         }
          
         public override string ToString(){
@@ -133,22 +141,18 @@ namespace BitStringNameSpace{
             length = 8;
         }
 
-        public void PopLastByte(){
+        public byte PopFirstByte(){
             if(length < 8){
                 throw new Exception("Bitstring is less then a byte");
             }
-            data >>= 8;
-            length -= 8;
-            bit_pointer >>= 8;
-        }
 
-        public void PopFirstByte(){
-            if(length < 8){
-                throw new Exception("Bitstring is less then a byte");
-            }
+            byte ret_value = this.GetFirstByte();
+
             data = data & (~((uint)255 << (length - 8)));
             length -= 8;
             bit_pointer >>= 8;
+
+            return ret_value;
         }
 
 

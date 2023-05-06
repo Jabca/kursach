@@ -1,7 +1,7 @@
-using NodeNameSpace;
-using BitStringNameSpace;
+using NodeNamespace;
+using BitStringNamespace;
 
-namespace HuffmanTreeNameSpace{
+namespace HuffmanTreeNamespace{
     [Serializable]
     public class HuffmanTree{
         private HuffmanNode root_node;

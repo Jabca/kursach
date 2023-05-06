@@ -1,6 +1,6 @@
-using BitStringNameSpace;
+using BitStringNamespace;
 
-namespace NodeNameSpace{
+namespace NodeNamespace{
     [Serializable]
     public class HuffmanNode{
         uint weight;
