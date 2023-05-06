@@ -71,6 +71,10 @@ namespace ExecutorNamespace{
             
         }
         public Executor(string[] sys_args){
+            if(sys_args.Length == 0){
+                error_message = "No arguments were provided";
+                return;
+            }
             input_path = sys_args[0];
             for(int i = 1; i < sys_args.Length; i++){
                 switch(sys_args[i]){
