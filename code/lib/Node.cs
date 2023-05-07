@@ -1,13 +1,16 @@
 using BitStringNamespace;
 
 namespace NodeNamespace{
-    [Serializable]
     public class HuffmanNode{
+        /// Tree node implementation for Huffman tree structure
+        /// May store references to it's two children and root, byte of data and weight
+        ///
         uint weight;
         byte? data;
         HuffmanNode? root, left_child, right_child;
 
         public HuffmanNode(byte? node_data, uint node_weight){
+            /// constructs node
             data = node_data;
             weight = node_weight;
 
@@ -16,11 +19,13 @@ namespace NodeNamespace{
             right_child = null;
         }
 
-        public void AssignRoot(HuffmanNode root_node){
+        public void AssignRoot(ref HuffmanNode root_node){
+            /// assigns root to node
             root = root_node;
         }
 
-        public void AssignChildren(HuffmanNode left_node, HuffmanNode right_node){
+        public void AssignChildren(ref HuffmanNode left_node, ref HuffmanNode right_node){
+            /// assigns children to node
             left_child = left_node;
             right_child = right_node;
         }
@@ -29,6 +34,7 @@ namespace NodeNamespace{
         public byte? GetData(){return data;}
 
         public HuffmanNode GetLeftChild(){
+            /// returns left child. If child is null throws null reference exception
             if(left_child is null){
                 throw new NullReferenceException();
             }
@@ -37,6 +43,7 @@ namespace NodeNamespace{
         }
 
         public HuffmanNode GetRightChild(){
+            /// returns right child. If child is null throws null reference exception
             if(right_child is null){
                 throw new NullReferenceException();
             }
@@ -44,6 +51,7 @@ namespace NodeNamespace{
         }
 
         public HuffmanNode GetRoot(){
+            /// returns root. If root is null throws null reference exception
             if(root is null){
                 throw new NullReferenceException();
             }

@@ -1,20 +1,24 @@
 namespace BitStringNamespace{
     public class BitString{
+        /// Data structure that allows you to operate with individual bits(up to 64 at a time).
         private int length;
         private ulong data;
         private ulong bit_pointer;
 
         public BitString(){
+            /// init empty Bitstring
             length = 0;
             data = 0;
             bit_pointer = 1;
         }
         public BitString(byte fill){
+            /// init bitstring filled with one byte of data
             length = 8;
             data = Convert.ToUInt64(fill);
             bit_pointer <<= 8;
         }
         public void AppendLeft(int bit){
+            /// append one bit of data from left side of bitstring
             if(bit == 1){
                 data = bit_pointer | data;
             } 
@@ -29,6 +33,7 @@ namespace BitStringNamespace{
         }
 
         public void AppendRight(int bit){
+            /// append one bit of data from right side of bitstring
             data <<= 1;
             if(bit == 1){
                 data = data | 1;
@@ -41,6 +46,7 @@ namespace BitStringNamespace{
         }
 
         public int GetLeft(){
+            /// return leftmost bit
             if(length == 0){
                 throw new Exception("Bitstring is empty");
             }
@@ -53,6 +59,7 @@ namespace BitStringNamespace{
         }
 
         public int PopLeft(){
+            // remove and return leftmost bit 
             if(length == 0){
                 throw new Exception("Bitstring is empty");
             }
@@ -66,6 +73,7 @@ namespace BitStringNamespace{
         }
 
         public int GetRight(){
+            /// return rightmost bit
             if(length == 0){
                 throw new Exception("Bitstring is empty");
             }
@@ -73,6 +81,7 @@ namespace BitStringNamespace{
         }
 
         public int PopRight(){
+            /// remove and return rightmost bit
             if(length == 0){
                 throw new Exception("Bitstring is empty");
             }
@@ -105,18 +114,22 @@ namespace BitStringNamespace{
         }
 
         public bool IsEmpty(){
+            /// whether contains any data
             return (length == 0);
         }
 
         public int getLength(){
+            /// get number if bits in bitstring
             return length;
         }
 
         public ulong GetData(){
+            /// get raw bitstring representation as 64 bit unsigned integer.
             return data;
         }
 
         public void AppendRight(BitString bs){
+            /// add data from another bitstring to the right side
             int l = bs.getLength();
             bit_pointer <<= l;
             data <<= l;
@@ -125,6 +138,7 @@ namespace BitStringNamespace{
         }
 
         public byte GetFirstByte(){
+            /// get leftmost byte from bitstring
             if(length < 8){
                 throw new Exception("Bitstring is less then a byte");
             }
@@ -132,9 +146,9 @@ namespace BitStringNamespace{
         }
 
         public void fillToByte(){
+            /// fills bitstring with zeroes from right to length of 8
             if(length >= 8){
                 throw new Exception("Bitstring is alredy minimum 1 byte long");
-                
             }
             bit_pointer <<= (8 - length);
             data <<= (8 - length);
@@ -142,6 +156,7 @@ namespace BitStringNamespace{
         }
 
         public byte PopFirstByte(){
+            /// remove and return leftmost byte
             if(length < 8){
                 throw new Exception("Bitstring is less then a byte");
             }
