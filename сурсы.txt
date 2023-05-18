@@ -1,5 +1,0 @@
-1. A New Kind of Science
-2. "The Shannon-Fano coding theorem for individual sequences" published in 1949.
-3. https://www.iis.fraunhofer.de/en/ff/amm/consumer-electronics/mp3.html
-4. https://www.vcodex.com/historical-timeline-of-video-coding-standards-and-formats/
-5. https://blogs.nvidia.com/blog/2023/02/28/rtx-video-super-resolution/
