@@ -1,0 +1,12 @@
+1. Stephen Wolfram - A New Kind Of Science // Wolfram Media - 2002
+2. Shannon C. E. - A Mathematical Theory of Communication // Bell System Technical Journal, июль 1948.
+3. История создания формата MP3 [Электронный ресурс] // режим доступа:  https://www.iis.fraunhofer.de/en/ff/amm/consumer-electronics/mp3.html
+4. Возможности использования технологий Nvidia для увеличения разрешения контента в сети интернет [Электронный ресурс] // режим доступа:  https://blogs.nvidia.com/blog/2023/02/28/rtx-video-super-resolution/
+5. История развития мультимедийных кодеков [Электронный ресурс] // режим доступа: https://www.vcodex.com/historical-timeline-of-video-coding-standards-and-formats/
+6. P. Faraboschi - Understanding Hardware Accelerators // IEEE Micro - 2016
+7. Aittala, J. Lehtinen - Neural Networks for Real-Time Rendering in Games // ACM Transactions on Graphics (TOG) - 2019.
+8. David Huffman - A Method for the Construction of Minimum-Redundancy Codes // Proceedings Of The  IRE, сентябрь 1952.
+9. Документация языка C# [Электронный ресурс] // режим доступа: https://learn.microsoft.com/en-us/dotnet/csharp/
+10. Introduction to Object-Oriented Programming Concepts (C#) [Электронный ресурс] // режим доступа: https://docs.microsoft.com/en-us/dotnet/csharp/fundamentals/tutorials/intro-to-csharp/object-oriented-programming
+
+
